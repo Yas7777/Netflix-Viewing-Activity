@@ -14,7 +14,7 @@ columns_to_drop = ["Country", "Bookmark", "Latest Bookmark", "index", "Attribute
 my_data = df.drop(columns = columns_to_drop)
 
 show_details = df.Title.str.split(":",expand=True,n=2)
-# show_details
+# show_detail
 df['show_name'] = show_details[0]
 df['season'] = show_details[1]
 df['episode_name'] = show_details[2]
