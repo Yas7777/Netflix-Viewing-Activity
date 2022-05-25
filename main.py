@@ -34,10 +34,9 @@ plt.bar(profile_count.index, profile_count.values, color="pink")
 plt.ylabel("Freq", fontsize=14)
 plt.xlabel("Profile Names", fontsize=14)
 plt.xticks(fontsize=11)
-plt.title("Viewing Frequency of Each Profile", fontsize=16)
+plt.title("Viewing Frequency", fontsize=16)
 plt.show()
-#columns_to_drop = ["Country", "Bookmark", "Latest Bookmark", "index", "Attributes", "Supplemental Video Type"]
-#my_data = df.drop(columns_to_drop)
+
 
 #how_details = df.Title.str.split(":", expand=True, n=2)
 
@@ -51,7 +50,6 @@ plt.show()
 #df['show_type'] = df.apply(lambda x:'Movie' if pd.isnull(x['season']) else 'TV Show', axis=1)
 
 
-"""df = df[df['Supplemental Video Type'].isna()]"""
 # make a new dataframe'
 #dfl = df[df['Profile Name'] == 'Yasmeen']
 
