@@ -1,8 +1,6 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 from imdb import IMDb
-import pickle
-import numpy as np
 import seaborn as sns
 
 # netflix file
