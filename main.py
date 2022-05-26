@@ -8,7 +8,7 @@ from matplotlib import pyplot
 import pytz
 from datetime import datetime, timezone
 import datetime
-sns.set()
+sns.set_palette("pastel")
 
 # how many minutes of TV I have watched - line chart?
 # % of movies vs TV shows I have watched - stacked bar
@@ -35,34 +35,32 @@ df.drop("Attributes", axis=1, inplace=True)
 # TODO:Supplemental Video Type - only
 df = df[df['Supplemental Video Type'].isna()]
 
-# graph of viewing activity
+# graph of viewing activity #todo: SSeaborn
 profile_count = df["Profile Name"].value_counts()
 plt.figure(figsize=(8,5))
 plt.bar(profile_count.index, profile_count.values, color="pink")
-plt.ylabel("Freq", fontsize=14)
-plt.xlabel("Profile Names", fontsize=14)
-plt.xticks(fontsize=11)
 plt.title("Viewing Frequency", fontsize=16)
-
-
-
-
-
-# make a new dataframe'
-dfl = df[df['Profile Name'] == 'Yasmeen']
+plt.set(xlabel ="Profile Names", ylabel ="Freq")
 
 show_details = df.Title.str.split(":", expand=True, n=2)
 # show_detail
-dfl['Show name'] = show_details[0]
-dfl['Season'] = show_details[1]
-dfl['Episode Name'] = show_details[2]
+df['Show name'] = show_details[0]
+df['Season'] = show_details[1]
+df['Episode Name'] = show_details[2]
 
 # If the season column is "None" them it is most likely a movie, lets add another column to our dataframe
 # my_history[my_history['season'].isna()]
-dfl['Show Type'] = dfl.apply(lambda x:'Movie' if pd.isnull(x['Season']) else 'TV Show', axis=1)
+df['Show Type'] = df.apply(lambda x:'Movie' if pd.isnull(x['Season']) else 'TV Show', axis=1)
 
+# name of index/coloumn to drop
+index_names = df[df['Profile Name'] == 'JP'].index
 
-x = dfl.groupby(['Show Type'])['Show Type'].count()
-y = len(dfl)
+# drop these row indexes
+df.drop(index_names, inplace=True)
+
+x = df.groupby(['Show Type'])['Show Type'].count()
+y = len(df)
 r = ((x/y)).round(2)
 mf_ratio = pd.DataFrame(r).T
+
+plt.show()
