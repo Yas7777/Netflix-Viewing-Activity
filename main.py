@@ -160,7 +160,7 @@ print(df_m)
 fig, ax = plt.subplots(figsize=(11, 9))
 
 # plot heatmap
-sb.heatmap(df_m, cmap="Blues", vmin= 100, vmax=500,linewidth=0.3, cbar_kws={"shrink": .8})
+sb.heatmap(df_m, cmap="Blues", vmin= 25, vmax=2700,linewidth=0.3, cbar_kws={"shrink": .8})
 plt.show()
 
 
