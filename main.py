@@ -1,4 +1,3 @@
-import matplotlib as mlt
 import numpy as np
 import pandas as pd
 import seaborn as sns
@@ -8,15 +7,8 @@ from matplotlib import pyplot
 import pytz
 from datetime import datetime, timezone, date
 import datetime
-sns.set(style="white") # Setting seaborn as default style even if use only matplotlib
-from bs4 import BeautifulSoup
-import seaborn as sb
-
-
-from datetime import datetime
-
-import requests
-from bs4 import BeautifulSoup
+# Setting seaborn as default style even if use only matplotlib
+sns.set(style="white")
 
 # Input the netflix file here
 netflix = '/Users/yasmeen/Desktop/ViewingActivity.csv'
@@ -27,11 +19,8 @@ df = pd.read_csv(netflix)
 df = df[df['Supplemental Video Type'].isna()]
 # Convert duration HH:MM:SS to number of minutes
 df['duration_minutes'] = pd.to_timedelta(df['Duration']).dt.total_seconds()/60
-print(df)
 # only include viewings with at least 15 minutes duration
 df = df[df['duration_minutes'] >= 15]
-print(df)
-
 # remove columns that will not be used for this project
 df.drop("Bookmark", axis=1, inplace=True)
 df.drop("Latest Bookmark", axis=1, inplace=True)
@@ -73,7 +62,7 @@ plt.show()
 
 show_details = df.Title.str.split(":", expand=True, n=2)
 # show_detail split into Show Name, Season, Episode Name
-df['Show name'] = show_details[0]
+df['show_name'] = show_details[0]
 df['Season'] = show_details[1]
 df['Episode Name'] = show_details[2]
 
@@ -88,73 +77,76 @@ df = df[df['Profile Name'] == "Yasmeen"]
 x = df.groupby(['Show Type'])['Show Type'].count()
 y = len(df)
 ratio = ((x/y)).round(2)
-# todo:what do this do?
-mf_ratio = pd.DataFrame(ratio).T
 for i in df.columns:
     null_rate = df[i].isna().sum()/len(df) * 100
     if null_rate > 0:
         print("{} null rate: {}%".format(i,round(null_rate,2)))
-
+show_type = df.groupby(['Year', 'Show Type'])['duration_minutes'].sum().unstack()
 plt.figure(figsize=(10, 6))
-# todo: REGULAR STACKED BAR
-df.groupby('Year')['Show Type'].value_counts(normalize=True).unstack('Show Type').plot.bar(stacked=True)
-
-
+plt.xticks(rotation=0, ha='center')
+# First plot the 'Male' bars for every day.
+fig,ax = plt.subplots()
+ax.bar(show_type.index, show_type['TV Show'], label='TV Show', color = 'pink')
+# Then plot the 'Female' bars on top, starting at the top of the 'Male'
+# bars.
+ax.bar(show_type.index, show_type['Movie'], bottom=show_type['TV Show'],
+       label='Movie', color = "red")
+ax.legend()
+for c in ax.containers:
+    # Optional: if the segment is small or 0, customize the labels
+    labels = [v.get_height() if v.get_height() > 0 else '' for v in c]
+    # remove the labels parameter if it's not needed for customized labels
+    ax.bar_label(c, fmt='%0.0f', label_type='center')
+ax.set_title('XYZ')
+# Remove 'Count' ylabel.
+ax.set_ylabel(None)
+plt.tight_layout()
 plt.show()
-"""
-# Most number of- NUMBER OF SEASONS
+
+# group TV Shows
+TVshow_groupby = df.groupby('show_name')['duration_minutes'].sum().reset_index().sort_values(by = 'duration_minutes',
+ascending = False)
+#TVshow_groupby['duration_hours'] = TVshow_groupby['duration_minutes']/60
+
 plt.figure(figsize=(10,6))
-plt.subplot(1,2,1)
-ax = sns.barplot(x=df['Show name'].sort_values(ascending=True).value_counts().index[:10],
-                 y=df["Show name"].sort_values(ascending=True).value_counts()[:10])
-plt.title("Shows with most time spent")
+ax = sns.barplot(
+    y = TVshow_groupby['show_name'][:10],
+    x = TVshow_groupby['duration_minutes'][:10],
+    palette = "PuRd",
+    ci = None)
+for c in ax.containers:
+    # Optional: if the segment is small or 0, customize the labels
+    labels = [v.get_height() if v.get_height() > 0 else '' for v in c]
+
+    # remove the labels parameter if it's not needed for customized labels
+    ax.bar_label(c, fmt='%0.0f', label_type='edge')
+
+plt.title("Top 10 TV Shows by Average Duration")
 plt.xlabel("Name of Show")
 plt.ylabel("Frequency of Watching")
-loc, labels = plt.xticks()
-ax.set_xticklabels(labels, rotation=45)
-#plt.show()
-
-TVshow_groupby = df.groupby(by='Show name').sum()
-#todo:print(TVshow_groupby)
-
-TVshow_groupby = TVshow_groupby.sort_values('duration_minutes', ascending=False)
-#todo:print(TVshow_groupby)
-TVshow_groupby['duration_hours'] = TVshow_groupby['duration_minutes']/60
-#todo:print(TVshow_groupby)
-
-plt.figure(figsize=(10,5))
-most_watched = TVshow_groupby.head(5)
-plt.barh(most_watched.index, most_watched['duration_hours'])
-plt.xlabel('Watched hours')
-#todo:plt.show()
-
+plt.show()
 #heatmap
 
-#lets work on a new data frame that is copy paste this frame
-#we need the years and months
+# lets work on a new data frame that is copy paste this frame
+# we need the years and months
 
-#Convert Start Time to datetime. Currently it is object
+# Convert Start Time to datetime. Currently it is object
 df['Start Time'] = pd.to_datetime(df['Start Time'])
 df['Year'] = df['Start Time'].dt.year
 df['Month'] = df['Start Time'].dt.month
-#df['Day of Week'] = df['Start Time'].dt.dayofweek
-#df['Day'] = df['Start Time'].dt.day_name()
-df = df[df['Show name'] == 'Friends']
+# df['Day of Week'] = df['Start Time'].dt.dayofweek
+# df['Day'] = df['Start Time'].dt.day_name()
+df = df[df['show_name'] == 'Friends']
 df = df[df['Year']!= 2021]
-#todo: print(df)
-#create a copy of the dataframe, and add columns for month and year
+# create a copy of the dataframe, and add columns for month and year
 df_m = df.copy()
 # group by month and year, get the average
 df_m = df_m.groupby(['Month', 'Year']).sum()
-#todo: print(df_m)
 df_m = df_m.unstack(level=0)
 
-#todo:print(df_m)
 #pd.set_option("display.max_rows", None, "display.max_columns", None)
-fig, ax = plt.subplots(figsize=(11, 9))
+#fig, ax = plt.subplots(figsize=(11, 9))
 
 # plot heatmap
-sb.heatmap(df_m, cmap="PuRd", vmin= 25, vmax=2700, linewidth=0.3, cbar_kws={"shrink": .8})
-plt.show()"""
-
-
+sns.heatmap(df_m, cmap="PuRd", vmin= 25, vmax=2700, linewidth=0.3, cbar_kws={"shrink": .8})
+plt.show()
