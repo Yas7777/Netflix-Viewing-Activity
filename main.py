@@ -13,32 +13,45 @@ sns.set(style="white")
 
 # Input the netflix file here
 netflix = '/Users/yasmeen/Desktop/ViewingActivity.csv'
-# read the file
+# Read the file and save into a dataframe
 df = pd.read_csv(netflix)
 
-# Pandas dataframe.isna() function is used to detect missing values.
+# Clean - Up
+
+# Pandas dataframe.isna() function is used to detect missing values. This removes those values
 df = df[df['Supplemental Video Type'].isna()]
 # Convert default duration HH:MM:SS to number of minutes
 df['duration_minutes'] = pd.to_timedelta(df['Duration']).dt.total_seconds()/60
-# only include viewings with at least 15 minutes duration
+# Only include viewings with at least 15 minutes duration
 df = df[df['duration_minutes'] >= 15]
-# remove columns that will not be used for this project
+# Remove columns that will not be used for this project
 df.drop("Bookmark", axis=1, inplace=True)
 df.drop("Latest Bookmark", axis=1, inplace=True)
 df.drop("Attributes", axis=1, inplace=True)
 
+show_details = df.Title.str.split(":", expand=True)#, n=2)
+# show_detail split into Show Name, Season, Episode Name
+df['show_name'] = show_details[0]
+df['Season'] = show_details[1]
+df['Episode Name'] = show_details[2]
+
+# If the season column is "None" them it is most likely a movie, lets add another column to our dataframe
+# my_history[my_history['season'].isna()]
+df['Show Type'] = df.apply(lambda x:'Movie' if pd.isnull(x['Season']) else 'TV Show', axis=1)
 # Graph 1 - How many minutes have the profiles watched?
-# Total minutes summed across all years
+# Total duration minutes summed across all years
 profile_count = df["Profile Name"]
 duration_minutes = df['duration_minutes']
 df['Start Time'] = pd.to_datetime(df['Start Time'])
 df['Year'] = df['Start Time'].dt.year
 df['Month'] = df['Start Time'].dt.month
+# Only use years that are not = 2015 and 2022
 df = df[df['Year'] != 2015]
 df = df[df['Year'] != 2022]
+# Count the Years
 year = df['Year']
 
-# setting the size and style of chart
+# Sets the SNS bar plot
 figure_1 = plt.figure(figsize=(10, 6))
 chart = sns.barplot(
     x=year,
@@ -51,7 +64,7 @@ chart = sns.barplot(
     )
 # sum = df['duration_minutes'].sum()
 # print(sum)
-
+# Sets the format of Graph 1
 plt.title("Viewing Frequency", fontsize=14)
 plt.xlabel("Years")
 plt.ylabel("Number of Minutes")
@@ -62,7 +75,9 @@ chart.margins(y=0.1)
 plt.tight_layout()
 plt.show()
 
-show_details = df.Title.str.split(":", expand=True, n=2)
+"""TODO: # Further cleanup - Delete
+
+show_details = df.Title.str.split(":", expand=True)#, n=2)
 # show_detail split into Show Name, Season, Episode Name
 df['show_name'] = show_details[0]
 df['Season'] = show_details[1]
@@ -70,33 +85,37 @@ df['Episode Name'] = show_details[2]
 
 # If the season column is "None" them it is most likely a movie, lets add another column to our dataframe
 # my_history[my_history['season'].isna()]
-df['Show Type'] = df.apply(lambda x:'Movie' if pd.isnull(x['Season']) else 'TV Show', axis=1)
+df['Show Type'] = df.apply(lambda x:'Movie' if pd.isnull(x['Season']) else 'TV Show', axis=1)"""
 
 
 # % of movies vs TV shows I have watched - stacked bar
 # only use my Profile
 df = df[df['Profile Name'] == "Yasmeen"]
+# Sanity - Check
 for i in df.columns:
     null_rate = df[i].isna().sum()/len(df) * 100
     if null_rate > 0:
         print("{} null rate: {}%".format(i, round(null_rate, 2)))
 
 show_type = df.groupby(['Year', 'Show Type'])['duration_minutes'].sum().unstack()
+
 plt.figure(figsize=(10, 6))
 plt.xticks(rotation=0, ha='center')
 
-# First plot the 'Male' bars for every day.
+# First plot the 'TV Show' bars
 fig, ax = plt.subplots(1)
 ax.bar(show_type.index, show_type['TV Show'], label='TV Show', color='pink')
-# Then plot the 'Female' bars on top, starting at the top of the 'Male' bars.
+# Plot the 'Movie' bars on top, starting at the top of the 'TV Show' bars.
 ax.bar(show_type.index, show_type['Movie'], bottom=show_type['TV Show'],
        label='Movie', color="red")
 ax.legend()
+
 for c in ax.containers:
     # Optional: if the segment is small or 0, customize the labels
     labels = [v.get_height() if v.get_height() > 0 else '' for v in c]
     # remove the labels parameter if it's not needed for customized labels
     ax.bar_label(c, fmt='%0.0f', label_type='center')
+
 ax.set_title('TV Shows vs Movies')
 # Remove 'Count' ylabel.
 ax.set_ylabel(None)
@@ -106,22 +125,22 @@ plt.tight_layout()
 plt.close(1)
 plt.show()
 
-# Most watched TV Shows
+# Graph 3- Vertical Stacked Graph -  Most watched TV Shows
 
-TVshow_groupby = df.groupby('show_name')['duration_minutes'].sum().reset_index().sort_values(by='duration_minutes',
+tv_show_groupby = df.groupby('show_name')['duration_minutes'].sum().reset_index().sort_values(by='duration_minutes',
                                                                                              ascending=False)
-# TVshow_groupby['duration_hours'] = TVshow_groupby['duration_minutes']/60
+# tv_show_groupby['duration_hours'] = TVshow_groupby['duration_minutes']/60
 # setting the size and style of chart
 plt.figure(figsize=(10, 6))
+
 ax = sns.barplot(
-    y=TVshow_groupby['show_name'][:10],
-    x=TVshow_groupby['duration_minutes'][:10],
+    x=tv_show_groupby['duration_minutes'][:10],
+    y=tv_show_groupby['show_name'][:10],
     palette="PuRd",
     ci=None)
-for c in ax.containers:
-    # Optional: if the segment is small or 0, customize the labels
-    labels = [v.get_height() if v.get_height() > 0 else '' for v in c]
 
+# Adding labels to the vertical stacked graph
+for c in ax.containers:
     # remove the labels parameter if it's not needed for customized labels
     ax.bar_label(c, fmt='%0.0f', label_type='edge')
 
@@ -166,4 +185,3 @@ sns.heatmap(df_m,
             )
 
 plt.show()
-matplotlib. pyplot. show()
