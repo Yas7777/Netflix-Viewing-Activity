@@ -20,7 +20,7 @@ The entire project used pandas, matplotlib, and seaborn.
 [Graph 2](Figure_2.png)
 * **Parameters:**
   * X-Axis: Shows years 2016 through 2021. 2015 and 2022 are not included as the data for those years were incomplete, and I wanted the graphs to portray a complete data set. 
-  * Y-Axis: Shows duration in minutes – the data can also be changed to portray in hours.
+  * Y-Axis: Shows duration in minutes.
 * **Analysis**:  Netflix's movie collection slowly started shifting to original movie content which I found boring. I don't particularly appreciate wasting time on lousy entertainment when many other options are available. I also enjoy the episodic nature of TV shows more.
 
 3 - Horizontal Bar Graph
