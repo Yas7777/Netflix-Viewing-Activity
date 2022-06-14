@@ -16,6 +16,7 @@ The entire project used libraries that included pandas, matplotlib, and seaborn.
 2 – Stacked Bar Graph:
 * **Details:** TV Shows watched vs Movies in terms of Duration (minutes) each year.
 * **Image:**
+[Graph 2](Figure_2.png)
 * **Parameters:**
   * X-Axis: Shows years 2016 through 2021. 2015 and 2022 are not included as the data for those years were incomplete, and I wanted the graphs to portray a complete data set. 
   * Y-Axis: Shows duration in minutes – the data can also be changed to portray in hours.
@@ -24,6 +25,7 @@ The entire project used libraries that included pandas, matplotlib, and seaborn.
 3 - Horizontal Bar Graph
 * **Details:** Top 10 TV shows watched in terms of Duration (minutes)
 * **Image:**
+[Graph 3](Figure_3.png)
 * **Parameters:**
   * X-Axis: Shows duration in minutes. 
   * Y-Axis: TV shows
@@ -32,6 +34,7 @@ The entire project used libraries that included pandas, matplotlib, and seaborn.
 4 - Heatmap 
 * **Details**: Heatmap of my viewing activity of Friends
 * **Image:**
+[Graph 4](Figure_4.png)
 * **Parameters:**
   * X-Axis: Years (does not contain data for 2020 as Friends left the Netflix USA platform)
   * Y-Axis: Months
