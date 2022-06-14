@@ -45,7 +45,9 @@ The entire project used pandas, matplotlib, and seaborn.
 
 **Programming Language:**  Python 3
 
-**Source Data:** Personal Netflix Activity downloaded into a csv format through www.netflix.com
+**Source Data:** 
+* Personal Netflix Activity downloaded through www.netflix.com
+* Detailed instructions to download: https://help.netflix.com/en/node/101917
 
 **My Hot Takes🔥:** 
 * The CSV file from Netflix requires significant clean-up to make it usable. 
