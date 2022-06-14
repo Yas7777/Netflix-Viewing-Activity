@@ -7,6 +7,7 @@ The entire project used libraries that included pandas, matplotlib, and seaborn.
 
 * **Details :** Duration (in minutes) that each profile in my account has watched over the years.Illustrates how much each Netflix account watched (in terms of duration minutes) from 2016 to 2021. 
 * **Image:**
+[Graph 1](Figure_1.png)
 * **Parameters:**  
   * X-Axis: Shows years 2016 through 2021. 2015 and 2022 are not included as the data for those years were incomplete, and I wanted the graphs to portray a complete data set. 
   * Y-Axis: Shows duration in minutes.
@@ -28,7 +29,7 @@ The entire project used libraries that included pandas, matplotlib, and seaborn.
   * Y-Axis: TV shows
 * **Analysis**:  Friends is a comfort show that I have been a loyal fan of for a long time. This is a show I played on repeat, hence the high duration in this graph.
 
-4- Heatmap 
+4 - Heatmap 
 * **Details**: Heatmap of my viewing activity of Friends
 * **Image:**
 * **Parameters:**
@@ -40,7 +41,7 @@ The entire project used libraries that included pandas, matplotlib, and seaborn.
 
 **Source Data:** Personal Netflix Activity downloaded into a csv format through www.netflix.com
 
-**My Hot Takes:** 
+**My Hot Takes🔥:** 
 * The CSV file from Netflix requires significant clean-up to make it usable. 
 * I did not use seaborn for stacked bar graphs as I found it particularly hard to use. 
 * With every graph created, many sanity checks are needed to ensure that the data is correct. Some are included in this code, however, I have significantly condensed it here for readability and to ensure the focus is on the graphs.
