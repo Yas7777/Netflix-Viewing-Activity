@@ -1,7 +1,7 @@
 **My Netflix Viewing Activity Visualization Project**
 
-I was interested to see my Netflix activity since I have been using Netflix for over six years. 
-The entire project used libraries that included pandas, matplotlib, and seaborn. Python 3 was the programming language used for this project.
+I was interested to see my Netflix viewing activity since I have been using Netflix for over six years. 
+The entire project used pandas, matplotlib, and seaborn. 
 
 1 – Grouped Bar Graph by Profile
 
