@@ -13,7 +13,7 @@ df = pd.read_csv(netflix)
 
 # Supplemental Video Type consists of values such as "hook", "trailer" etc which we do not want to include in the data
 # analysis. We only want feature length TV Shows/Movies in our DF which has no value. Pandas dataframe.isna() function
-# is used to detect missing values. The code below ensure that the DF only consists of data with the missing values i.e
+# is used to detect missing values. The code below ensure that the DF only consists of data with the missing values i.e.
 # only consists of movies and tv shows.
 
 df = df[df['Supplemental Video Type'].isna()]
@@ -36,7 +36,7 @@ df['Episode Name'] = show_details[2]
 
 
 # If the season column is "None" -> it is a movie, lets add another column to the DF
-df['Show Type'] = df.apply(lambda x:'Movie' if pd.isnull(x['Season']) else 'TV Show', axis=1)
+df['Show Type'] = df.apply(lambda x: 'Movie' if pd.isnull(x['Season']) else 'TV Show', axis=1)
 # Convert Start Time to datetime. Currently, it is an object.
 
 df['Start Time'] = pd.to_datetime(df['Start Time'])
@@ -103,7 +103,7 @@ fig, ax = plt.subplots(1)
 ax.bar(show_type.index, show_type['TV Show'], label='TV Show', color='#d4b9da')
 # Plot the 'Movie' bars on top, starting at the top of the 'TV Show' bars.
 ax.bar(show_type.index, show_type['Movie'], bottom=show_type['TV Show'],
-       label='Movie', color= '#df65b0')
+       label='Movie', color='#df65b0')
 ax.legend()
 
 for c in ax.containers:
