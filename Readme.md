@@ -49,7 +49,7 @@ The entire project used pandas, matplotlib, and seaborn.
 * Personal Netflix Activity downloaded through www.netflix.com
 * Detailed instructions to download: https://help.netflix.com/en/node/101917
 
-**My Hot Takes🔥:** 
+**🔥My Hot Takes🔥:** 
 * The CSV file from Netflix requires significant clean-up to make it usable. 
 * I did not use seaborn for stacked bar graphs as I found it particularly hard to use. 
 * With every graph created, many sanity checks are needed to ensure that the data is correct. Some are included in this code, however, I have significantly condensed it here for readability and to ensure the focus is on the graphs.
