@@ -41,7 +41,7 @@ The entire project used pandas, matplotlib, and seaborn.
 * **Parameters:**
   * X-Axis: Years (does not contain data for 2020 as Friends left the Netflix USA platform)
   * Y-Axis: Months
-* **Analysis:** Given that Graph 3 pointed out that Friends was the most-watched show, I wanted to understand how much time I spent watching that show over the years it was on Netflix over the years and which month was my most highly watched. 
+* **Analysis:** Given that Graph 3 pointed out that Friends was the most-watched show, I wanted to understand how much time I spent watching that show over the years it was on Netflix and which month was my most highly watched. 
 
 **Programming Language:**  Python 3
 
