@@ -11,7 +11,7 @@ The entire project used pandas, matplotlib, and seaborn.
 * **Parameters:**  
   * X-Axis: Shows years 2016 through 2021. 2015 and 2022 are not included as the data for those years were incomplete, and I wanted the graphs to portray a complete data set. 
   * Y-Axis: Shows duration in minutes.
-* **Parameters:**  My viewing frequency is significantly higher than the other profile. This is because TV watching is a hobby and relaxation activity for me. I like keeping up with new shows as they come out. The "binge" factor of shows has also severely contributed to my high duration.
+* **Analysis:**  My viewing frequency is significantly higher than the other profile. This is because TV watching is a hobby and relaxation activity for me. I like keeping up with new shows as they come out. The "binge" factor of shows has also severely contributed to my high duration.
 
 2 – Stacked Bar Graph:
 
