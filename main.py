@@ -18,7 +18,7 @@ df = pd.read_csv(netflix)
 
 df = df[df['Supplemental Video Type'].isna()]
 # Convert default duration HH:MM:SS to number of minutes
-df['duration_minutes'] = pd.to_timedelta(df['Duration']).dt.total_yeaseconds()/60
+df['duration_minutes'] = pd.to_timedelta(df['Duration']).dt.total_seconds()/60
 # Only include viewings with at least 15 minutes duration
 df = df[df['duration_minutes'] >= 15]
 # Remove columns that will not be used for this data analysis.
