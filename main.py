@@ -18,7 +18,7 @@ df = pd.read_csv(netflix)
 
 df = df[df['Supplemental Video Type'].isna()]
 # Convert default duration HH:MM:SS to number of minutes
-df['duration_minutes'] = pd.to_timedelta(df['Duration']).dt.total_seconds()/60
+df['duration_minutes'] = pd.to_timedelta(df['Duration']).dt.total_yeaseconds()/60
 # Only include viewings with at least 15 minutes duration
 df = df[df['duration_minutes'] >= 15]
 # Remove columns that will not be used for this data analysis.
@@ -147,7 +147,7 @@ plt.show()
 
 # We only want to look at "Friends" for this heatmap
 df = df[df['Show Name'] == 'Friends']
-# did a check to see if my DF had any  if there is data for 2020.
+# did a check to see if there is data for 2020.
 df = df[df['Year'] != 2021]
 # Using a new DF for the Heatmap, create a copy of the DF
 df_m = df.copy()
