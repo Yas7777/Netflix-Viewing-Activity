@@ -6,9 +6,14 @@ sns.set(style="white")
 
 # Input the Netflix file here
 # TODO:
-netflix = '/Users/yasmeen/Desktop/ViewingActivity.csv'
+netflix_filepath = input('Enter filepath: ')
+df = pd.read_csv(netflix_filepath)
+# check to see if it prints
+print(df)
+
+
 # Read the file and save into a dataframe (called "DF" from here on out)
-df = pd.read_csv(netflix)
+
 
 # Data Clean - Up
 
