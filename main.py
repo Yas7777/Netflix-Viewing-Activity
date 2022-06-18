@@ -11,7 +11,7 @@ df = pd.read_csv(netflix)
 
 # Data Clean - Up
 
-# Supplemental Video Type consists of values such as "hook", "trailer" etc which we do not want to include in the data
+# Supplemental Video Type consist of values such as "hook", "trailer" etc which we do not want to include in the data
 # analysis. We only want feature length TV Shows/Movies in our DF which has no value. Pandas dataframe.isna() function
 # is used to detect missing values. The code below ensure that the DF only consists of data with the missing values i.e.
 # only consists of movies and tv shows.
