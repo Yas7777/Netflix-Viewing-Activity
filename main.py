@@ -12,12 +12,9 @@ df = pd.read_csv(netflix_filepath)
 print(df)
 
 
-# Read the file and save into a dataframe (called "DF" from here on out)
-
-
 # Data Clean - Up
 
-# Supplemental Video Type consist of values such as "hook", "trailer" etc which we do not want to include in the data
+# Supplemental Video Type consists of values such as "hook", "trailer" etc which we do not want to include in the data
 # analysis. We only want feature length TV Shows/Movies in our DF which has no value. Pandas dataframe.isna() function
 # is used to detect missing values. The code below ensure that the DF only consists of data with the missing values i.e.
 # only consists of movies and tv shows.
@@ -91,14 +88,14 @@ plt.show()
 # Graph 2 - Movies vs TV shows
 
 # only use my Profile
-#TODO
-input = str("enter profile name")
-df = df[df['Profile Name'] == input]
+#TODO:
+user_profile_name = input('Enter Name ')
+df = df[df['Profile Name'] == user_profile_name]
 # Sanity - Check
-#for i in df.columns:
-#    null_rate = df[i].isna().sum()/len(df) * 100
-#    if null_rate > 0:
-#        print("{} null rate: {}%".format(i, round(null_rate, 2)))
+for i in df.columns:
+    null_rate = df[i].isna().sum()/len(df) * 100
+    if null_rate > 0:
+        print("{} null rate: {}%".format(i, round(null_rate, 2)))
 
 show_type = df.groupby(['Year', 'Show Type'])['duration_minutes'].sum().unstack()
 
@@ -117,7 +114,7 @@ ax.legend()
 for c in ax.containers:
     # Adding labels to the graph
     ax.bar_label(c, size=10, fmt='%0.0f', label_type='center')
-#todo
+
 ax.set_title("Yasmeen's Viewing Frequency - TV Shows vs Movies")
 ax.set_ylabel("Duration (in minutes)")
 plt.tight_layout()
@@ -154,8 +151,8 @@ plt.show()
 # Graph 4- Heatmap - Showing Activity on watching "Friends"
 
 # We only want to look at "Friends" for this heatmap
-#todo
-df = df[df['Show Name'] == 'Friends']
+user_fav_show = input('Enter fav show ')
+df = df[df['Show Name'] == user_fav_show]
 # did a check to see if there is data for 2020.
 df = df[df['Year'] != 2021]
 # Using a new DF for the Heatmap, create a copy of the DF
@@ -178,7 +175,7 @@ sns.heatmap(df_m,
             annot_kws={"size": 10},
             xticklabels=x_axis_labels
             )
-#todo
+
 plt.title("Friends TV Show - Heatmap")
 plt.xlabel("")
 plt.ylabel("Month")
