@@ -159,12 +159,12 @@ df = df[df['Show Name'] == user_fav_show]
 df_m = df.copy()
 # group by month and year, get the sum
 df_m = df_m.groupby(['Year', 'Month']).sum()
-df_m = df_m.unstack(level=0)
-
+df_m = df_m.unstack(level=1)
+print(df_m)
 
 # plot heatmap
 #TODO:
-x_axis_labels = [2016, 2017, 2018, 2019]
+#x_axis_labels = [i for i in range(data.coloumn1)]
 sns.heatmap(df_m,
             cmap="PuRd",
             annot=True,
@@ -174,7 +174,7 @@ sns.heatmap(df_m,
             linewidth=0.3,
             cbar_kws={'label': 'Duration (in minutes)'},
             annot_kws={"size": 10},
-            xticklabels=x_axis_labels
+            xticklabels=columns
             )
 
 plt.title("Friends TV Show - Heatmap")
