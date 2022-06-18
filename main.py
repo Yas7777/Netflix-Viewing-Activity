@@ -47,8 +47,8 @@ df['Start Time'] = pd.to_datetime(df['Start Time'])
 df['Year'] = df['Start Time'].dt.year
 df['Month'] = df['Start Time'].dt.month
 # Only use years that are not = 2015 and 2022
-df = df[df['Year'] != 2015]
-df = df[df['Year'] != 2022]
+#df = df[df['Year'] != 2015]
+#df = df[df['Year'] != 2022]
 
 # Graph 1 - How many minutes have the profiles watched?
 
@@ -154,7 +154,7 @@ plt.show()
 user_fav_show = input('Enter fav show ')
 df = df[df['Show Name'] == user_fav_show]
 # did a check to see if there is data for 2020.
-df = df[df['Year'] != 2021]
+#df = df[df['Year'] != 2021]
 # Using a new DF for the Heatmap, create a copy of the DF
 df_m = df.copy()
 # group by month and year, get the sum
@@ -163,6 +163,7 @@ df_m = df_m.unstack(level=0)
 
 
 # plot heatmap
+#TODO:
 x_axis_labels = [2016, 2017, 2018, 2019]
 sns.heatmap(df_m,
             cmap="PuRd",
