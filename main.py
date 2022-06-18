@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 sns.set(style="white")
 
 # Input the Netflix file here
+# TODO:
 netflix = '/Users/yasmeen/Desktop/ViewingActivity.csv'
 # Read the file and save into a dataframe (called "DF" from here on out)
 df = pd.read_csv(netflix)
@@ -85,6 +86,7 @@ plt.show()
 # Graph 2 - Movies vs TV shows
 
 # only use my Profile
+#TODO
 input = str("enter profile name")
 df = df[df['Profile Name'] == input]
 # Sanity - Check
@@ -110,7 +112,7 @@ ax.legend()
 for c in ax.containers:
     # Adding labels to the graph
     ax.bar_label(c, size=10, fmt='%0.0f', label_type='center')
-
+#todo
 ax.set_title("Yasmeen's Viewing Frequency - TV Shows vs Movies")
 ax.set_ylabel("Duration (in minutes)")
 plt.tight_layout()
@@ -147,6 +149,7 @@ plt.show()
 # Graph 4- Heatmap - Showing Activity on watching "Friends"
 
 # We only want to look at "Friends" for this heatmap
+#todo
 df = df[df['Show Name'] == 'Friends']
 # did a check to see if there is data for 2020.
 df = df[df['Year'] != 2021]
@@ -170,7 +173,7 @@ sns.heatmap(df_m,
             annot_kws={"size": 10},
             xticklabels=x_axis_labels
             )
-
+#todo
 plt.title("Friends TV Show - Heatmap")
 plt.xlabel("")
 plt.ylabel("Month")
