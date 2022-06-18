@@ -85,12 +85,13 @@ plt.show()
 # Graph 2 - Movies vs TV shows
 
 # only use my Profile
-df = df[df['Profile Name'] == "Yasmeen"]
+input = str("enter profile name")
+df = df[df['Profile Name'] == input]
 # Sanity - Check
-for i in df.columns:
-    null_rate = df[i].isna().sum()/len(df) * 100
-    if null_rate > 0:
-        print("{} null rate: {}%".format(i, round(null_rate, 2)))
+#for i in df.columns:
+#    null_rate = df[i].isna().sum()/len(df) * 100
+#    if null_rate > 0:
+#        print("{} null rate: {}%".format(i, round(null_rate, 2)))
 
 show_type = df.groupby(['Year', 'Show Type'])['duration_minutes'].sum().unstack()
 
