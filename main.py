@@ -1,6 +1,7 @@
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
+import numpy
 # Setting seaborn as default style even if only matplotlib is used
 sns.set(style="white")
 
@@ -21,9 +22,9 @@ print(df)
 
 df = df[df['Supplemental Video Type'].isna()]
 # Convert default duration HH:MM:SS to number of minutes
-df['duration_minutes'] = pd.to_timedelta(df['Duration']).dt.total_seconds()/60
+df['Duration'] = pd.to_timedelta(df['Duration']).dt.total_seconds()/60
 # Only include viewings with at least 15 minutes duration
-df = df[df['duration_minutes'] >= 15]
+df = df[df['Duration'] >= 15]
 # Remove columns that will not be used for this data analysis.
 df.drop("Bookmark", axis=1, inplace=True)
 df.drop("Latest Bookmark", axis=1, inplace=True)
@@ -54,7 +55,7 @@ df['Month'] = df['Start Time'].dt.month
 
 # Total duration minutes summed across all years
 profile_count = df["Profile Name"]
-duration_minutes = df['duration_minutes']
+Duration = df['Duration']
 
 # Count the Years
 year = df['Year']
@@ -63,14 +64,14 @@ year = df['Year']
 figure_1 = plt.figure(figsize=(10, 6))
 chart = sns.barplot(
     x=year,
-    y=duration_minutes,
+    y=Duration,
     hue=profile_count,
     data=df,
     estimator=sum,
     palette="PuRd",
     ci=None
     )
-# sum = df['duration_minutes'].sum()
+# sum = df['Duration'].sum()
 # print(sum)
 
 # Sets the format of Graph 1
@@ -97,7 +98,7 @@ for i in df.columns:
     if null_rate > 0:
         print("{} null rate: {}%".format(i, round(null_rate, 2)))
 
-show_type = df.groupby(['Year', 'Show Type'])['duration_minutes'].sum().unstack()
+show_type = df.groupby(['Year', 'Show Type'])['Duration'].sum().unstack()
 
 plt.figure(figsize=(10, 6))
 plt.xticks(rotation=0, ha='center')
@@ -124,15 +125,16 @@ plt.close(1)
 plt.show()
 
 # Graph 3- Vertical Stacked Graph -  Most watched TV Shows
-
-tv_show_groupby = df.groupby('Show Name')['duration_minutes'].sum().reset_index().sort_values(by='duration_minutes',
+df_copy = df.copy()
+tv_show_groupby = df_copy.groupby('Show Name')['Duration'].sum().reset_index().sort_values(by='Duration',
                                                                                               ascending=False)
+print(df)
 # setting the size and style of chart
 plt.figure(figsize=(10, 6))
 
 # plot graph
 ax = sns.barplot(
-    x=tv_show_groupby['duration_minutes'][:10],
+    x=tv_show_groupby['Duration'][:10],
     y=tv_show_groupby['Show Name'][:10],
     palette="PuRd",
     ci=None)
@@ -150,7 +152,7 @@ plt.show()
 
 # Graph 4- Heatmap - Showing Activity on watching "Friends"
 
-# We only want to look at "Friends" for this heatmap
+"""# We only want to look at "Friends" for this heatmap
 user_fav_show = input('Enter fav show ')
 df = df[df['Show Name'] == user_fav_show]
 # did a check to see if there is data for 2020.
@@ -159,7 +161,9 @@ df = df[df['Show Name'] == user_fav_show]
 df_m = df.copy()
 # group by month and year, get the sum
 df_m = df_m.groupby(['Year', 'Month']).sum()
-df_m = df_m.unstack(level=1)
+#df_m = df_m.reset_index(inplace=True)
+#df_m.columns = df_m.droplevel(1)
+df_m = df_m.unstack(level=0)
 print(df_m)
 
 # plot heatmap
@@ -174,11 +178,44 @@ sns.heatmap(df_m,
             linewidth=0.3,
             cbar_kws={'label': 'Duration (in minutes)'},
             annot_kws={"size": 10},
-            xticklabels=columns
+            #columns='Month'
             )
 
 plt.title("Friends TV Show - Heatmap")
 plt.xlabel("")
 plt.ylabel("Month")
+plt.suptitle("")
+plt.tight_layout()
+plt.show()"""
+#todo: change the name of the coloumn in here and then do a groupby. create a copy
+user_fav_show = input('Enter fav show ')
+df_copy2 = df.copy()
+df_copy2 = df_copy2[df_copy2['Show Name'] == user_fav_show]
+df_copy2 = df_copy2.groupby(['Year', 'Month']).sum()
+df_copy2 = df_copy2.unstack(level=0)
+df_copy2.columns = df_copy2.columns.set_levels([''], level=0)
+
+#print((list(df_copy.columns.values)))
+print((list(df_copy2.columns.values)))
+
+#print(list)
+#labels = []
+#df.columns = labels
+sns.heatmap(df_copy2,
+            cmap="PuRd",
+            annot=True,
+            fmt="0.0f",
+            vmin=25,
+            vmax=2700,
+            linewidth=0.3,
+            cbar_kws={'label': 'Duration (in minutes)'},
+            annot_kws={"size": 10},
+            #columns='Month'
+            )
+
+plt.title("Friends TV Show - Heatmap")
+plt.xlabel("")
+plt.ylabel("Month")
+plt.suptitle("")
 plt.tight_layout()
 plt.show()
