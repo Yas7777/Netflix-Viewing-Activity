@@ -193,7 +193,7 @@ df_copy2 = df.copy()
 df_copy2 = df_copy2[df_copy2['Show Name'] == user_fav_show]
 df_copy2 = df_copy2.groupby(['Year', 'Month']).sum()
 df_copy2 = df_copy2.unstack(level=0)
-df_copy2.columns = df_copy2.columns.set_levels([''], level=0)
+df_copy2.columns = df_copy2.columns.set_levels([""], level=0)
 
 #print((list(df_copy.columns.values)))
 print((list(df_copy2.columns.values)))
