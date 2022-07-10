@@ -1,42 +1,51 @@
-**My Netflix Viewing Activity Visualization Project**
+**Netflix Viewing Activity Visualization Project**
 
-I was interested to see my Netflix viewing activity since I have been using Netflix for over six years. 
-The entire project used pandas, matplotlib, and seaborn. 
+This idea was born out of my need to figure out how much Netflix I have consumed and what shows I have spent 
+an obscene amount of time on. 
+
+**Tools needed**
+
+* Install Python 3
+* An IDE of your choice
+* CSV file of your Netflix Viewing Activity - Detailed instructions to download: https://help.netflix.com/en/node/101917
+
+** How to **
+
+**Graphs you will see:**
 
 1 – Grouped Bar Graph by Profile
 
-* **Details :** Illustrates how much each Netflix account watched (in terms of duration minutes) from 2016 to 2021. 
-* **Image:**
+* **Details :** Illustrates how much each Netflix profile in your account has watched (in terms of duration minutes)
+* **Image** (_my data for illustration purposes only)_
+**_TODO:_**
 [Graph 1](Figure_1.png)
 * **Parameters:**  
-  * X-Axis: Shows years 2016 through 2021. 2015 and 2022 are not included as the data for those years were incomplete, and I wanted the graphs to portray a complete data set. 
-  * Y-Axis: Shows duration in minutes.
-* **Analysis:**  My viewing frequency is significantly higher than the other profile. This is because TV watching is a hobby and relaxation activity for me. I like keeping up with new shows as they come out. The "binge" factor of shows has also severely contributed to my high duration.
+  * X-Axis: Years
+  * Y-Axis: Duration in minutes
 
 2 – Stacked Bar Graph:
 
 * **Details:** TV Shows watched vs Movies in terms of Duration (minutes) each year.
-* **Image:**
+* **Image** (_my data for illustration purposes only)_
 [Graph 2](Figure_2.png)
 * **Parameters:**
-  * X-Axis: Shows years 2016 through 2021. 2015 and 2022 are not included as the data for those years were incomplete, and I wanted the graphs to portray a complete data set. 
-  * Y-Axis: Shows duration in minutes.
-* **Analysis**:  Netflix's movie collection slowly started shifting to original movie content which I found boring. I don't particularly appreciate wasting time on lousy entertainment when many other options are available. I also enjoy the episodic nature of TV shows more.
+  * X-Axis: Years
+  * Y-Axis: Duration in minutes
 
 3 - Horizontal Bar Graph
 
 * **Details:** Top 10 TV shows watched in terms of Duration (minutes)
-* **Image:**
+* **Image** (_my data for illustration purposes only)_
 [Graph 3](Figure_3.png)
 * **Parameters:**
-  * X-Axis: Shows duration in minutes. 
+  * X-Axis: Duration in minutes
   * Y-Axis: TV shows
 * **Analysis**:  Friends is a comfort show that I have been a loyal fan of for a long time. This is a show I played on repeat, hence the high duration in this graph.
 
 4 - Heatmap 
 
 * **Details**: Heatmap of my viewing activity of Friends
-* **Image:**
+* **Image** (_my data for illustration purposes only)_
 [Graph 4](Figure_4.png)
 * **Parameters:**
   * X-Axis: Years (does not contain data for 2020 as Friends left the Netflix USA platform)
@@ -56,6 +65,6 @@ The entire project used pandas, matplotlib, and seaborn.
 * With every graph created, many sanity checks are needed to ensure that the data is correct. Some are included in this code, however, I have significantly condensed it here for readability and to ensure the focus is on the graphs.
 
 **Future Improvements:** 
-* Streamline data clean-up such that the code can be used for any user's data without amending the original code to account for that user's specific Netflix viewing activity. 
+~~* Streamline data clean-up such that the code can be used for any user's data without amending the original code to account for that user's specific Netflix viewing activity.~~ 
 * Include the IMDb library to see how ratings correlate with viewing activity.
 * Include viewing activity data from other streaming platforms' data (HBO, Hulu, etc.)
