@@ -44,6 +44,7 @@ The entire project used pandas, matplotlib, and seaborn.
 * **Analysis:** Given that Graph 3 pointed out that Friends was the most-watched show, I wanted to understand how much time I spent watching that show over the years it was on Netflix and which month was my most highly watched. 
 
 **Programming Language:**  Python 3
+**Libraries used:** Pandas, Matplotlib, and Seaborn
 
 **Source Data:** 
 * Personal Netflix Activity downloaded through www.netflix.com
