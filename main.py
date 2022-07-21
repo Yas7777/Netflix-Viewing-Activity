@@ -1,30 +1,30 @@
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
-import numpy
+
 # Setting seaborn as default style even if only matplotlib is used
 sns.set(style="white")
 
 # Input the Netflix file here
-# TODO:
-netflix_filepath = input('Enter filepath: ')
+netflix_filepath = input("Enter filepath as described in the ReadMe: ")
 df = pd.read_csv(netflix_filepath)
 # check to see if it prints
 print(df)
-
 
 # Data Clean - Up
 
 # Supplemental Video Type consists of values such as "hook", "trailer" etc which we do not want to include in the data
 # analysis. We only want feature length TV Shows/Movies in our DF which has no value. Pandas dataframe.isna() function
 # is used to detect missing values. The code below ensure that the DF only consists of data with the missing values i.e.
-# only consists of movies and tv shows.
+# only consists of movies and tv shows./Users/yasmeen/Library/Containers/com.microsoft.Excel/Data/Downloads/netflix-report/CONTENT_INTERACTION/ViewingActivity.csv
 
 df = df[df['Supplemental Video Type'].isna()]
 # Convert default duration HH:MM:SS to number of minutes
 df['Duration'] = pd.to_timedelta(df['Duration']).dt.total_seconds()/60
 # Only include viewings with at least 15 minutes duration
 df = df[df['Duration'] >= 15]
+# Converts Duration from Minutes into Hours
+df['Duration'] = df['Duration'] / 60
 # Remove columns that will not be used for this data analysis.
 df.drop("Bookmark", axis=1, inplace=True)
 df.drop("Latest Bookmark", axis=1, inplace=True)
@@ -47,11 +47,12 @@ df['Start Time'] = pd.to_datetime(df['Start Time'])
 # We need the years and months
 df['Year'] = df['Start Time'].dt.year
 df['Month'] = df['Start Time'].dt.month
-# Only use years that are not = 2015 and 2022
-#df = df[df['Year'] != 2015]
-#df = df[df['Year'] != 2022]
+# Can include the below to screen for certain years for example:
+# if the user only wants to use years that are not = 2015 and 2022
+# df = df[df['Year'] != 2015]
+# df = df[df['Year'] != 2022]
 
-# Graph 1 - How many minutes have the profiles watched?
+# ---------------Graph 1 - How many minutes have the profiles watched?-----------------------
 
 # Total duration minutes summed across all years
 profile_count = df["Profile Name"]
@@ -77,7 +78,7 @@ chart = sns.barplot(
 # Sets the format of Graph 1
 plt.title("Viewing Frequency", fontsize=14)
 plt.xlabel("")
-plt.ylabel("Duration (in Minutes)")
+plt.ylabel("Duration (in Hours)")
 # Add labels to the bar chart
 for container in chart.containers:
     chart.bar_label(container, size=10, fmt='%0.0f')
@@ -85,12 +86,10 @@ chart.margins(y=0.1)
 plt.tight_layout()
 plt.show()
 
+# --------------Graph 2 - Movies vs TV shows------------------------
 
-# Graph 2 - Movies vs TV shows
-
-# only use my Profile
-#TODO:
-user_profile_name = input('Enter Name ')
+# only use one Profile
+user_profile_name = input("Enter Profile Name: ").title()
 df = df[df['Profile Name'] == user_profile_name]
 # Sanity - Check
 for i in df.columns:
@@ -117,14 +116,14 @@ for c in ax.containers:
     ax.bar_label(c, size=10, fmt='%0.0f', label_type='center')
 
 ax.set_title("Yasmeen's Viewing Frequency - TV Shows vs Movies")
-ax.set_ylabel("Duration (in minutes)")
+ax.set_ylabel("Duration (in Hours)")
 plt.tight_layout()
 
 # deleting the empty plot for now
 plt.close(1)
 plt.show()
 
-# Graph 3- Vertical Stacked Graph -  Most watched TV Shows
+# ---------------Graph 3- Vertical Stacked Graph -  Most watched TV Shows------------------
 df_copy = df.copy()
 tv_show_groupby = df_copy.groupby('Show Name')['Duration'].sum().reset_index().sort_values(by='Duration',
                                                                                               ascending=False)
@@ -144,76 +143,36 @@ for c in ax.containers:
     ax.bar_label(c, fmt='%0.0f', label_type='edge')
 
 plt.title("Top 10 TV Shows (by duration)")
-plt.xlabel("Duration (in minutes)")
+plt.xlabel("Duration (in Hours)")
 plt.ylabel("")
 plt.tight_layout()
 plt.show()
 
-
-# Graph 4- Heatmap - Showing Activity on watching "Friends"
-
-"""# We only want to look at "Friends" for this heatmap
-user_fav_show = input('Enter fav show ')
+# ------------Graph 4- Heatmap - Showing Activity on watching one TV show------------------
+# We only want to only consider one TV show for this heatmap
+user_fav_show = input("Enter TV Show Name you would like to see a heatmap for: ").title()
 df = df[df['Show Name'] == user_fav_show]
-# did a check to see if there is data for 2020.
-#df = df[df['Year'] != 2021]
 # Using a new DF for the Heatmap, create a copy of the DF
-df_m = df.copy()
+df_heatmap = df.copy()
 # group by month and year, get the sum
-df_m = df_m.groupby(['Year', 'Month']).sum()
-#df_m = df_m.reset_index(inplace=True)
-#df_m.columns = df_m.droplevel(1)
-df_m = df_m.unstack(level=0)
-print(df_m)
+df_heatmap = df_heatmap.groupby(['Year', 'Month']).sum()
+df_heatmap = df_heatmap.unstack(level=0)
+# A sanity check
+# print(df_heatmap)
 
 # plot heatmap
-#TODO:
-#x_axis_labels = [i for i in range(data.coloumn1)]
-sns.heatmap(df_m,
+sns.heatmap(df_heatmap,
             cmap="PuRd",
             annot=True,
             fmt="0.0f",
-            vmin=25,
-            vmax=2700,
+            vmin=0,
+            vmax=60,
             linewidth=0.3,
-            cbar_kws={'label': 'Duration (in minutes)'},
+            cbar_kws={'label': 'Duration (in Hours)'},
             annot_kws={"size": 10},
-            #columns='Month'
             )
 
-plt.title("Friends TV Show - Heatmap")
-plt.xlabel("")
-plt.ylabel("Month")
-plt.suptitle("")
-plt.tight_layout()
-plt.show()"""
-#todo: change the name of the coloumn in here and then do a groupby. create a copy
-user_fav_show = input('Enter fav show ')
-df_copy2 = df.copy()
-df_copy2 = df_copy2[df_copy2['Show Name'] == user_fav_show]
-df_copy2 = df_copy2.groupby(['Year', 'Month']).sum()
-df_copy2 = df_copy2.unstack(level=0)
-df_copy2.columns = df_copy2.columns.set_levels([""], level=0)
-
-#print((list(df_copy.columns.values)))
-print((list(df_copy2.columns.values)))
-
-#print(list)
-#labels = []
-#df.columns = labels
-sns.heatmap(df_copy2,
-            cmap="PuRd",
-            annot=True,
-            fmt="0.0f",
-            vmin=25,
-            vmax=2700,
-            linewidth=0.3,
-            cbar_kws={'label': 'Duration (in minutes)'},
-            annot_kws={"size": 10},
-            #columns='Month'
-            )
-
-plt.title("Friends TV Show - Heatmap")
+plt.title("TV Show - Heatmap")
 plt.xlabel("")
 plt.ylabel("Month")
 plt.suptitle("")
