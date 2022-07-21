@@ -72,8 +72,6 @@ chart = sns.barplot(
     palette="PuRd",
     ci=None
     )
-# sum = df['Duration'].sum()
-# print(sum)
 
 # Sets the format of Graph 1
 plt.title("Viewing Frequency", fontsize=14)
@@ -89,13 +87,13 @@ plt.show()
 # --------------Graph 2 - Movies vs TV shows------------------------
 
 # only use one Profile
-user_profile_name = input("Enter Profile Name: ").title()
+user_profile_name = input("Enter Profile Name: ")
 df = df[df['Profile Name'] == user_profile_name]
 # Sanity - Check
-for i in df.columns:
-    null_rate = df[i].isna().sum()/len(df) * 100
-    if null_rate > 0:
-        print("{} null rate: {}%".format(i, round(null_rate, 2)))
+# for i in df.columns:
+#     null_rate = df[i].isna().sum()/len(df) * 100
+#     if null_rate > 0:
+#         print("{} null rate: {}%".format(i, round(null_rate, 2)))
 
 show_type = df.groupby(['Year', 'Show Type'])['Duration'].sum().unstack()
 
@@ -115,7 +113,7 @@ for c in ax.containers:
     # Adding labels to the graph
     ax.bar_label(c, size=10, fmt='%0.0f', label_type='center')
 
-ax.set_title("Yasmeen's Viewing Frequency - TV Shows vs Movies")
+plt.title(str(user_profile_name) + " Viewing Frequency - TV Shows vs Movies")
 ax.set_ylabel("Duration (in Hours)")
 plt.tight_layout()
 
@@ -148,7 +146,7 @@ plt.ylabel("")
 plt.tight_layout()
 plt.show()
 
-# ------------Graph 4- Heatmap - Showing Activity on watching one TV show------------------
+# ------------Graph 4 - Heatmap - Showing Activity on watching one TV show------------------
 # We only want to only consider one TV show for this heatmap
 user_fav_show = input("Enter TV Show Name you would like to see a heatmap for: ").title()
 df = df[df['Show Name'] == user_fav_show]
@@ -172,7 +170,7 @@ sns.heatmap(df_heatmap,
             annot_kws={"size": 10},
             )
 
-plt.title("TV Show - Heatmap")
+plt.title(str(user_fav_show) + " Heatmap")
 plt.xlabel("")
 plt.ylabel("Month")
 plt.suptitle("")
