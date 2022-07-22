@@ -1,60 +1,94 @@
-**My Netflix Viewing Activity Visualization Project**
+# Viewing Activity (Netflix) Visualization Project
 
-I was interested to see my Netflix viewing activity since I have been using Netflix for over six years. 
-The entire project used pandas, matplotlib, and seaborn. 
+This idea was born out of my need to figure out how much Netflix I have consumed and what shows I have spent  an obscene amount of time on.   
+* **Version 1:** Only worked with my own data.
+* **Version 2:** Works with any user's data. (Future improvements - 1)
+  
+# Table of Contents  
+1. Installation and Tools
+2. Programming Languages and libraries used
+3. Graphs
+4. My Hot Takes
+5. Future Improvements
+  
+## Installation and Tools
 
-1 – Grouped Bar Graph by Profile
+* Install an IDE of your choice  
+    > I prefer PyCharm: https://www.jetbrains.com/pycharm/download/
+* Install  Python 3  
+    > https://www.python.org/downloads/
+* CSV file containing Netflix Viewing Activity
+    > Detailed instructions to download: https://help.netflix.com/en/node/101917
 
-* **Details :** Illustrates how much each Netflix account watched (in terms of duration minutes) from 2016 to 2021. 
-* **Image:**
-[Graph 1](Figure_1.png)
-* **Parameters:**  
-  * X-Axis: Shows years 2016 through 2021. 2015 and 2022 are not included as the data for those years were incomplete, and I wanted the graphs to portray a complete data set. 
-  * Y-Axis: Shows duration in minutes.
-* **Analysis:**  My viewing frequency is significantly higher than the other profile. This is because TV watching is a hobby and relaxation activity for me. I like keeping up with new shows as they come out. The "binge" factor of shows has also severely contributed to my high duration.
+## Programming Languages and libraries used
+* **Programming Language:** Python
+* **Libraries used:** Pandas, Matplotlib, and Seaborn  
 
-2 – Stacked Bar Graph:
+## Using the Program
 
-* **Details:** TV Shows watched vs Movies in terms of Duration (minutes) each year.
-* **Image:**
-[Graph 2](Figure_2.png)
-* **Parameters:**
-  * X-Axis: Shows years 2016 through 2021. 2015 and 2022 are not included as the data for those years were incomplete, and I wanted the graphs to portray a complete data set. 
-  * Y-Axis: Shows duration in minutes.
-* **Analysis**:  Netflix's movie collection slowly started shifting to original movie content which I found boring. I don't particularly appreciate wasting time on lousy entertainment when many other options are available. I also enjoy the episodic nature of TV shows more.
+The program requires user input three times, listed below:
 
-3 - Horizontal Bar Graph
+1 - CSV File: Copy the exact file path of the CSV file that you downloaded and paste the path when asked:
+  > __For example:__ 
+  > /Users/library/Data/Downloads/netflix-report/ViewingActivity.csv
 
-* **Details:** Top 10 TV shows watched in terms of Duration (minutes)
-* **Image:**
-[Graph 3](Figure_3.png)
-* **Parameters:**
-  * X-Axis: Shows duration in minutes. 
-  * Y-Axis: TV shows
-* **Analysis**:  Friends is a comfort show that I have been a loyal fan of for a long time. This is a show I played on repeat, hence the high duration in this graph.
+This csv file will be cleaned up to remove unnecessary data and arrange existing data as required for visualizations.
 
-4 - Heatmap 
+2 - Profile Name: Given that Netflix account usually contains multiple profiles/users - this allows us to see visualisations
+associated with just ONE profile/user. Enter one of the profile names so that Graph 2, 3, 4 can be plotted. 
 
-* **Details**: Heatmap of my viewing activity of Friends
-* **Image:**
-[Graph 4](Figure_4.png)
-* **Parameters:**
-  * X-Axis: Years (does not contain data for 2020 as Friends left the Netflix USA platform)
-  * Y-Axis: Months
-* **Analysis:** Given that Graph 3 pointed out that Friends was the most-watched show, I wanted to understand how much time I spent watching that show over the years it was on Netflix and which month was my most highly watched. 
+> __For example:__ 
+  > Yasmeen
 
-**Programming Language:**  Python 3
+3 - Heatmap: Enter the name of a TV Show that you have watched, which you would like to see a heatmap plotted for:
+> __For example:__ 
+  > Friends
+## Graphs
 
-**Source Data:** 
-* Personal Netflix Activity downloaded through www.netflix.com
-* Detailed instructions to download: https://help.netflix.com/en/node/101917
+**1 - Grouped Bar Graph by Profile**  
+  >* **Details :** Illustrates how much each Netflix profile in your account has watched (in terms of duration hours). 
+  >* **Image** (_my data for illustration purposes only)_
+  > ![Graph 1](https://raw.githubusercontent.com/Yas7777/Netflix-Viewing-Activity/Version_2/Graph%201.png)
+>* **Parameters:**
+ >  * X-Axis: Years
+ >  * Y-Axis: Duration in hours  
+ 
+**2 – Stacked Bar Graph:**  
+  
+>* **Details:** TV Shows watched vs Movies in terms of Duration (hours) each year.  
+>* **Image** (_my data for illustration purposes only)_  
+![Graph 2](https://raw.githubusercontent.com/Yas7777/Netflix-Viewing-Activity/Version_2/Graph%202.png))  
+>* **Parameters:**  
+>  * X-Axis: Years  
+>  * Y-Axis: Duration in hours  
+  
+**3 - Horizontal Bar Graph**  
+  
+>* **Details:** Top 10 TV shows watched in terms of Duration (hours).  
+>* **Image** (_my data for illustration purposes only)_  
+![Graph 3](https://raw.githubusercontent.com/Yas7777/Netflix-Viewing-Activity/Version_2/Graph%203.png)
+>* **Parameters:**  
+  >  * X-Axis: Duration in minutes  
+  >  * Y-Axis: TV shows  
+  
+**4 - Heatmap**   
+  
+>* **Details**: Heatmap of your viewing activity on a show of your choice.  
+>* **Image** (_my data for illustration purposes only)_  
+ ![Graph 4](https://raw.githubusercontent.com/Yas7777/Netflix-Viewing-Activity/Version_2/Graph%204.png)
+>* **Parameters:**  
+  >  * X-Axis: Years   
+  >  * Y-Axis: Months  
+  
+## 🔥My Hot Takes🔥
 
-**🔥My Hot Takes🔥:** 
-* The CSV file from Netflix requires significant clean-up to make it usable. 
-* I did not use seaborn for stacked bar graphs as I found it particularly hard to use. 
-* With every graph created, many sanity checks are needed to ensure that the data is correct. Some are included in this code, however, I have significantly condensed it here for readability and to ensure the focus is on the graphs.
+* The CSV file from Netflix requires significant clean-up to make it usable.   
+* I did not use seaborn for stacked bar graphs as I found it particularly hard to use.   
+* With every graph created, many sanity checks are needed to ensure that the data is correct. Some are included in this code, however, I have significantly condensed it here for readability and to ensure the focus is on the graphs.  
 
-**Future Improvements:** 
-* Streamline data clean-up such that the code can be used for any user's data without amending the original code to account for that user's specific Netflix viewing activity. 
-* Include the IMDb library to see how ratings correlate with viewing activity.
-* Include viewing activity data from other streaming platforms' data (HBO, Hulu, etc.)
+## Future Improvements
+
+* ~~Streamline data clean-up such that the code can be used for any user's data without amending the original code to account for that user's specific Netflix viewing activity.~~
+* Include the IMDb library to see how ratings correlate with viewing activity.  
+* Include viewing activity data from other streaming platforms' data (HBO, Hulu, etc.).
+* Create a front end for it and make it more accessible. 

@@ -1,13 +1,15 @@
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
+
 # Setting seaborn as default style even if only matplotlib is used
 sns.set(style="white")
 
 # Input the Netflix file here
-netflix = '/Users/yasmeen/Desktop/ViewingActivity.csv'
-# Read the file and save into a dataframe (called "DF" from here on out)
-df = pd.read_csv(netflix)
+netflix_filepath = input("Enter filepath as described in the ReadMe: ")
+df = pd.read_csv(netflix_filepath)
+# check to see if it prints
+print(df)
 
 # Data Clean - Up
 
@@ -15,12 +17,15 @@ df = pd.read_csv(netflix)
 # analysis. We only want feature length TV Shows/Movies in our DF which has no value. Pandas dataframe.isna() function
 # is used to detect missing values. The code below ensure that the DF only consists of data with the missing values i.e.
 # only consists of movies and tv shows.
+# /Users/yasmeen/Library/Containers/com.microsoft.Excel/Data/Downloads/netflix-report/CONTENT_INTERACTION/ViewingActivity.csv
 
 df = df[df['Supplemental Video Type'].isna()]
 # Convert default duration HH:MM:SS to number of minutes
-df['duration_minutes'] = pd.to_timedelta(df['Duration']).dt.total_seconds()/60
+df['Duration'] = pd.to_timedelta(df['Duration']).dt.total_seconds()/60
 # Only include viewings with at least 15 minutes duration
-df = df[df['duration_minutes'] >= 15]
+df = df[df['Duration'] >= 15]
+# Converts Duration from Minutes into Hours
+df['Duration'] = df['Duration'] / 60
 # Remove columns that will not be used for this data analysis.
 df.drop("Bookmark", axis=1, inplace=True)
 df.drop("Latest Bookmark", axis=1, inplace=True)
@@ -43,15 +48,16 @@ df['Start Time'] = pd.to_datetime(df['Start Time'])
 # We need the years and months
 df['Year'] = df['Start Time'].dt.year
 df['Month'] = df['Start Time'].dt.month
-# Only use years that are not = 2015 and 2022
-df = df[df['Year'] != 2015]
-df = df[df['Year'] != 2022]
+# Can include the below to screen for certain years for example:
+# if the user only wants to use years that are not = 2015 and 2022
+# df = df[df['Year'] != 2015]
+# df = df[df['Year'] != 2022]
 
-# Graph 1 - How many minutes have the profiles watched?
+# ---------------Graph 1 - How many minutes have the profiles watched?-----------------------
 
 # Total duration minutes summed across all years
 profile_count = df["Profile Name"]
-duration_minutes = df['duration_minutes']
+Duration = df['Duration']
 
 # Count the Years
 year = df['Year']
@@ -60,20 +66,18 @@ year = df['Year']
 figure_1 = plt.figure(figsize=(10, 6))
 chart = sns.barplot(
     x=year,
-    y=duration_minutes,
+    y=Duration,
     hue=profile_count,
     data=df,
     estimator=sum,
     palette="PuRd",
     ci=None
     )
-# sum = df['duration_minutes'].sum()
-# print(sum)
 
 # Sets the format of Graph 1
 plt.title("Viewing Frequency", fontsize=14)
 plt.xlabel("")
-plt.ylabel("Duration (in Minutes)")
+plt.ylabel("Duration (in Hours)")
 # Add labels to the bar chart
 for container in chart.containers:
     chart.bar_label(container, size=10, fmt='%0.0f')
@@ -81,18 +85,18 @@ chart.margins(y=0.1)
 plt.tight_layout()
 plt.show()
 
+# --------------Graph 2 - Movies vs TV shows------------------------
 
-# Graph 2 - Movies vs TV shows
-
-# only use my Profile
-df = df[df['Profile Name'] == "Yasmeen"]
+# only use one Profile
+user_profile_name = input("Enter Profile Name: ")
+df = df[df['Profile Name'] == user_profile_name]
 # Sanity - Check
 for i in df.columns:
-    null_rate = df[i].isna().sum()/len(df) * 100
-    if null_rate > 0:
-        print("{} null rate: {}%".format(i, round(null_rate, 2)))
+     null_rate = df[i].isna().sum()/len(df) * 100
+     if null_rate > 0:
+         print("{} null rate: {}%".format(i, round(null_rate, 2)))
 
-show_type = df.groupby(['Year', 'Show Type'])['duration_minutes'].sum().unstack()
+show_type = df.groupby(['Year', 'Show Type'])['Duration'].sum().unstack()
 
 plt.figure(figsize=(10, 6))
 plt.xticks(rotation=0, ha='center')
@@ -110,24 +114,25 @@ for c in ax.containers:
     # Adding labels to the graph
     ax.bar_label(c, size=10, fmt='%0.0f', label_type='center')
 
-ax.set_title("Yasmeen's Viewing Frequency - TV Shows vs Movies")
-ax.set_ylabel("Duration (in minutes)")
+plt.title(str(user_profile_name) + " Viewing Frequency - TV Shows vs Movies")
+ax.set_ylabel("Duration (in Hours)")
 plt.tight_layout()
 
 # deleting the empty plot for now
 plt.close(1)
 plt.show()
 
-# Graph 3- Vertical Stacked Graph -  Most watched TV Shows
-
-tv_show_groupby = df.groupby('Show Name')['duration_minutes'].sum().reset_index().sort_values(by='duration_minutes',
+# ---------------Graph 3- Vertical Stacked Graph -  Most watched TV Shows------------------
+df_copy = df.copy()
+tv_show_groupby = df_copy.groupby('Show Name')['Duration'].sum().reset_index().sort_values(by='Duration',
                                                                                               ascending=False)
+print(df)
 # setting the size and style of chart
 plt.figure(figsize=(10, 6))
 
 # plot graph
 ax = sns.barplot(
-    x=tv_show_groupby['duration_minutes'][:10],
+    x=tv_show_groupby['Duration'][:10],
     y=tv_show_groupby['Show Name'][:10],
     palette="PuRd",
     ci=None)
@@ -137,41 +142,38 @@ for c in ax.containers:
     ax.bar_label(c, fmt='%0.0f', label_type='edge')
 
 plt.title("Top 10 TV Shows (by duration)")
-plt.xlabel("Duration (in minutes)")
+plt.xlabel("Duration (in Hours)")
 plt.ylabel("")
 plt.tight_layout()
 plt.show()
 
-
-# Graph 4- Heatmap - Showing Activity on watching "Friends"
-
-# We only want to look at "Friends" for this heatmap
-df = df[df['Show Name'] == 'Friends']
-# did a check to see if there is data for 2020.
-df = df[df['Year'] != 2021]
+# ------------Graph 4 - Heatmap - Showing Activity on watching one TV show------------------
+# We only want to only consider one TV show for this heatmap
+user_fav_show = input("Enter TV Show Name you would like to see a heatmap for: ")
+df = df[df['Show Name'] == user_fav_show]
 # Using a new DF for the Heatmap, create a copy of the DF
-df_m = df.copy()
+df_heatmap = df.copy()
 # group by month and year, get the sum
-df_m = df_m.groupby(['Year', 'Month']).sum()
-df_m = df_m.unstack(level=0)
-
+df_heatmap = df_heatmap.groupby(['Year', 'Month']).sum()
+df_heatmap = df_heatmap.unstack(level=0)
+# A sanity check
+# print(df_heatmap)
 
 # plot heatmap
-x_axis_labels = [2016, 2017, 2018, 2019]
-sns.heatmap(df_m,
+sns.heatmap(df_heatmap,
             cmap="PuRd",
             annot=True,
             fmt="0.0f",
-            vmin=25,
-            vmax=2700,
+            vmin=1,
+            vmax=70,
             linewidth=0.3,
-            cbar_kws={'label': 'Duration (in minutes)'},
+            cbar_kws={'label': 'Duration (in Hours)'},
             annot_kws={"size": 10},
-            xticklabels=x_axis_labels
             )
 
-plt.title("Friends TV Show - Heatmap")
+plt.title(str(user_fav_show) + " Heatmap")
 plt.xlabel("")
 plt.ylabel("Month")
+plt.suptitle("")
 plt.tight_layout()
 plt.show()
