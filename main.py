@@ -16,7 +16,8 @@ print(df)
 # Supplemental Video Type consists of values such as "hook", "trailer" etc which we do not want to include in the data
 # analysis. We only want feature length TV Shows/Movies in our DF which has no value. Pandas dataframe.isna() function
 # is used to detect missing values. The code below ensure that the DF only consists of data with the missing values i.e.
-# only consists of movies and tv shows./Users/yasmeen/Library/Containers/com.microsoft.Excel/Data/Downloads/netflix-report/CONTENT_INTERACTION/ViewingActivity.csv
+# only consists of movies and tv shows.
+# /Users/yasmeen/Library/Containers/com.microsoft.Excel/Data/Downloads/netflix-report/CONTENT_INTERACTION/ViewingActivity.csv
 
 df = df[df['Supplemental Video Type'].isna()]
 # Convert default duration HH:MM:SS to number of minutes
@@ -148,7 +149,7 @@ plt.show()
 
 # ------------Graph 4 - Heatmap - Showing Activity on watching one TV show------------------
 # We only want to only consider one TV show for this heatmap
-user_fav_show = input("Enter TV Show Name you would like to see a heatmap for: ").title()
+user_fav_show = input("Enter TV Show Name you would like to see a heatmap for: ")
 df = df[df['Show Name'] == user_fav_show]
 # Using a new DF for the Heatmap, create a copy of the DF
 df_heatmap = df.copy()
@@ -163,8 +164,8 @@ sns.heatmap(df_heatmap,
             cmap="PuRd",
             annot=True,
             fmt="0.0f",
-            vmin=0,
-            vmax=60,
+            vmin=1,
+            vmax=70,
             linewidth=0.3,
             cbar_kws={'label': 'Duration (in Hours)'},
             annot_kws={"size": 10},
