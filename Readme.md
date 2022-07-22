@@ -46,7 +46,7 @@ associated with just ONE profile/user. Enter one of the profile names so that Gr
 ## Graphs
 
 **1 - Grouped Bar Graph by Profile**  
-  >* **Details :** Illustrates how much each Netflix profile in your account has watched (in terms of duration hours) 
+  >* **Details :** Illustrates how much each Netflix profile in your account has watched (in terms of duration hours). 
   >* **Image** (_my data for illustration purposes only)_
   > [Graph 1](Figure_1.png)  
 >* **Parameters:**
@@ -64,7 +64,7 @@ associated with just ONE profile/user. Enter one of the profile names so that Gr
   
 **3 - Horizontal Bar Graph**  
   
->* **Details:** Top 10 TV shows watched in terms of Duration (hours)  
+>* **Details:** Top 10 TV shows watched in terms of Duration (hours).  
 >* **Image** (_my data for illustration purposes only)_  
 [Graph 3](Figure_3.png)  
 >* **Parameters:**  
@@ -73,7 +73,7 @@ associated with just ONE profile/user. Enter one of the profile names so that Gr
   
 **4 - Heatmap**   
   
->* **Details**: Heatmap of your viewing activity on a show of your choice  
+>* **Details**: Heatmap of your viewing activity on a show of your choice.  
 >* **Image** (_my data for illustration purposes only)_  
 [Graph 4](Figure_4.png)  
 >* **Parameters:**  
@@ -90,4 +90,5 @@ associated with just ONE profile/user. Enter one of the profile names so that Gr
 
 * ~~Streamline data clean-up such that the code can be used for any user's data without amending the original code to account for that user's specific Netflix viewing activity.~~
 * Include the IMDb library to see how ratings correlate with viewing activity.  
-* Include viewing activity data from other streaming platforms' data (HBO, Hulu, etc.)
+* Include viewing activity data from other streaming platforms' data (HBO, Hulu, etc.).
+* Create a front end for it and make it more accessible. 
