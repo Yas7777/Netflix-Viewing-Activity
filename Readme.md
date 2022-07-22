@@ -25,6 +25,7 @@ This idea was born out of my need to figure out how much Netflix I have consumed
 * **Libraries used:** Pandas, Matplotlib, and Seaborn  
 
 ## Using the Program
+Copy paste the code from main.py into your chosen IDE.
 
 The program requires user input three times, listed below:
 
