@@ -48,7 +48,7 @@ associated with just ONE profile/user. Enter one of the profile names so that Gr
 **1 - Grouped Bar Graph by Profile**  
   >* **Details :** Illustrates how much each Netflix profile in your account has watched (in terms of duration hours). 
   >* **Image** (_my data for illustration purposes only)_
-  > ![Graph 1]([https://raw.githubusercontent.com/Yas7777/Netflix-Viewing-Activity/Version_2/Graph%201.png])
+  > ![image description or alt text](https://raw.githubusercontent.com/Yas7777/Netflix-Viewing-Activity/Version_2/Graph%201.png)
 >* **Parameters:**
  >  * X-Axis: Years
  >  * Y-Axis: Duration in hours  
