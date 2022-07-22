@@ -1,4 +1,4 @@
-# Viewing Activity (Netflix) Visualization Project - Version 
+# Viewing Activity (Netflix) Visualization Project - Version 2
 
 This idea was born out of my need to figure out how much Netflix I have consumed and what shows I have spent  an obscene amount of time on.   
 * **Version 1:** Only worked with my own data.
