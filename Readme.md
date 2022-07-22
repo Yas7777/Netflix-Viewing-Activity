@@ -75,7 +75,7 @@ associated with just ONE profile/user. Enter one of the profile names so that Gr
   
 >* **Details**: Heatmap of your viewing activity on a show of your choice.  
 >* **Image** (_my data for illustration purposes only)_  
-[Graph 4](Figure_4.png)  
+![Graph 4](https://raw.githubusercontent.com/Yas7777/Netflix-Viewing-Activity/blob/master/Figure_4.png)
 >* **Parameters:**  
   >  * X-Axis: Years   
   >  * Y-Axis: Months  
