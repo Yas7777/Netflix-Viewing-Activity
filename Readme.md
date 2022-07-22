@@ -48,7 +48,7 @@ associated with just ONE profile/user. Enter one of the profile names so that Gr
 **1 - Grouped Bar Graph by Profile**  
   >* **Details :** Illustrates how much each Netflix profile in your account has watched (in terms of duration hours). 
   >* **Image** (_my data for illustration purposes only)_
-  > [Graph 1](Figure_1.png)  
+  > ![Graph 1](Graph 1.png)  
 >* **Parameters:**
  >  * X-Axis: Years
  >  * Y-Axis: Duration in hours  
@@ -57,7 +57,7 @@ associated with just ONE profile/user. Enter one of the profile names so that Gr
   
 >* **Details:** TV Shows watched vs Movies in terms of Duration (hours) each year.  
 >* **Image** (_my data for illustration purposes only)_  
-[Graph 2](Figure_2.png)  
+![Graph 2](Graph 2.png)  
 >* **Parameters:**  
 >  * X-Axis: Years  
 >  * Y-Axis: Duration in hours  
@@ -66,7 +66,7 @@ associated with just ONE profile/user. Enter one of the profile names so that Gr
   
 >* **Details:** Top 10 TV shows watched in terms of Duration (hours).  
 >* **Image** (_my data for illustration purposes only)_  
-[Graph 3](Figure_3.png)  
+![Graph 3](Graph 3.png)  
 >* **Parameters:**  
   >  * X-Axis: Duration in minutes  
   >  * Y-Axis: TV shows  
@@ -75,7 +75,7 @@ associated with just ONE profile/user. Enter one of the profile names so that Gr
   
 >* **Details**: Heatmap of your viewing activity on a show of your choice.  
 >* **Image** (_my data for illustration purposes only)_  
-![Graph 4](https://raw.githubusercontent.com/Yas7777/Netflix-Viewing-Activity/blob/master/Figure_4.png)
+ ![Graph 4](Graph 4.png)
 >* **Parameters:**  
   >  * X-Axis: Years   
   >  * Y-Axis: Months  
