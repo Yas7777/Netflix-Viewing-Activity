@@ -17,7 +17,6 @@ print(df)
 # analysis. We only want feature length TV Shows/Movies in our DF which has no value. Pandas dataframe.isna() function
 # is used to detect missing values. The code below ensure that the DF only consists of data with the missing values i.e.
 # only consists of movies and tv shows.
-# /Users/yasmeen/Library/Containers/com.microsoft.Excel/Data/Downloads/netflix-report/CONTENT_INTERACTION/ViewingActivity.csv
 
 df = df[df['Supplemental Video Type'].isna()]
 # Convert default duration HH:MM:SS to number of minutes
