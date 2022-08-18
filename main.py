@@ -52,6 +52,7 @@ df['Month'] = df['Start Time'].dt.month
 # df = df[df['Year'] != 2015]
 # df = df[df['Year'] != 2022]
 
+# TODO: function here
 # ---------------Graph 1 - How many minutes have the profiles watched?-----------------------
 
 # Total duration minutes summed across all years
@@ -84,6 +85,7 @@ chart.margins(y=0.1)
 plt.tight_layout()
 plt.show()
 
+# TODO: function here
 # --------------Graph 2 - Movies vs TV shows------------------------
 
 # only use one Profile
@@ -121,6 +123,7 @@ plt.tight_layout()
 plt.close(1)
 plt.show()
 
+# TODO: function here
 # ---------------Graph 3- Vertical Stacked Graph -  Most watched TV Shows------------------
 df_copy = df.copy()
 tv_show_groupby = df_copy.groupby('Show Name')['Duration'].sum().reset_index().sort_values(by='Duration',
@@ -146,6 +149,7 @@ plt.ylabel("")
 plt.tight_layout()
 plt.show()
 
+# TODO: function here
 # ------------Graph 4 - Heatmap - Showing Activity on watching one TV show------------------
 # We only want to only consider one TV show for this heatmap
 user_fav_show = input("Enter TV Show Name you would like to see a heatmap for: ")
